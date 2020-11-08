@@ -6,7 +6,7 @@
 /*   By: cborton <cborton@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:38:18 by cborton           #+#    #+#             */
-/*   Updated: 2020/11/08 15:38:02 by cborton          ###   ########.fr       */
+/*   Updated: 2020/11/08 15:40:47 by cborton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,14 @@ static char **ft_another_function(char const *s, char c, char **res)
 	while (s[str_id])
 	{
 		len_str = get_len_str(s, c, str_id);
-		if (!(res[i] = (char *)malloc(sizeof(char) * n)))
+		if (!(res[i] = (char *)malloc(sizeof(char) * len_str)))
 		{
 			while (i)
 				free(res[i -=1]);
 			free(res);
 			return(NULL);
 		}
+		
 	}
 	
 }
@@ -87,7 +88,7 @@ char	**ft_split(char const *s, char c)
 	res[n - 1] = NULL;
 	if (n == 1)
 		return(res);
-	res = ft_another_function(s, c, res)
+	res = ft_another_function(s, c, res);
 	return (res);
 }
 
