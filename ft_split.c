@@ -6,19 +6,18 @@
 /*   By: cborton <cborton@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:38:18 by cborton           #+#    #+#             */
-/*   Updated: 2020/11/08 15:40:47 by cborton          ###   ########.fr       */
+/*   Updated: 2020/11/08 20:45:10 by cborton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-int		numb_str(const char *s, const char c)
+int			ft_get_amount_of_str(const char *s, const char c)
 {
 	int n;
 
 	n = 0;
-
 	while (*s != '\0')
 	{
 		if (*s != c)
@@ -30,10 +29,10 @@ int		numb_str(const char *s, const char c)
 		}
 		s++;
 	}
-	return(n);
+	return (n);
 }
 
-static int get_len_str(char const *s, char c, int str_id)
+static int	ft_get_len_str(char const *s, char c, int str_id)
 {
 	int n;
 
@@ -45,57 +44,68 @@ static int get_len_str(char const *s, char c, int str_id)
 		str_id++;
 		n++;
 	}
-	return (n + 1);
+	return (n);
 }
 
-static char **ft_another_function(char const *s, char c, char **res)
+static void	ft_add_str(char *str, const char *s, int *s_char_id, char c)
 {
-	int str_id;
-	int len_str;
-	int	i;
+	int last_id_of_str_OR_str_len;
 
-	str_id = 0;
-	i = 0;
-	while (s[str_id])
+	last_id_of_str_OR_str_len = 0;
+	while (s[*s_char_id] && s[*s_char_id] == c)
+		*s_char_id = *s_char_id + 1;
+	while (s[*s_char_id] && s[*s_char_id] != c)
 	{
-		len_str = get_len_str(s, c, str_id);
-		if (!(res[i] = (char *)malloc(sizeof(char) * len_str)))
-		{
-			while (i)
-				free(res[i -=1]);
-			free(res);
-			return(NULL);
-		}
-		
+		str[last_id_of_str_OR_str_len] = s[*s_char_id];
+		last_id_of_str_OR_str_len++;
+		*s_char_id = *s_char_id + 1;
 	}
-	
+	*s_char_id = *s_char_id - 1;
+	str[last_id_of_str_OR_str_len] = '\0';
 }
 
-char	**ft_split(char const *s, char c)
+static char	**ft_core(char const *s, char c, char **res)
 {
-	char	**res;
-	int		n;
+	int s_char_id;
+	int str_len;
+	int	mas_s_id;
 
-	// res[0] = "ANS";
-	// res[1] = "WER";
-	
-	if (!s)
-		return (NULL);
-	n = numb_str(s, c) + 1;
-	res = (char **)malloc(sizeof(char *) * n);
-	if (!res)
-		return (NULL);
-	res[n - 1] = NULL;
-	if (n == 1)
-		return(res);
-	res = ft_another_function(s, c, res);
+	s_char_id = 0;
+	mas_s_id = 0;
+	while (s[s_char_id])
+	{
+		str_len = ft_get_len_str(s, c, s_char_id);
+		if (str_len != 0)
+		{
+			if (!(res[mas_s_id] = (char *)malloc(sizeof(char) * (str_len + 1))))
+			{
+				while (mas_s_id)
+					free(res[mas_s_id = mas_s_id - 1]);
+				free(res);
+				return (NULL);
+			}
+			ft_add_str(res[mas_s_id], s, &s_char_id, c);
+		}
+		s_char_id = s_char_id + 1;
+		mas_s_id = mas_s_id + 1;
+	}
 	return (res);
 }
 
-int		main(void)
+char		**ft_split(char const *s, char c)
 {
-	char const *s = "DenisVDenisVDenis";
-	char c = 'V';
+	char	**res;
+	int		amount_of_str;
 
-	printf("%i\n", numb_str(s, c));
+	if (!s)
+		return (NULL);
+	amount_of_str = ft_get_amount_of_str(s, c) + 1;
+	res = (char **)malloc(sizeof(char *) * amount_of_str);
+	if (!res)
+		return (NULL);
+	res[amount_of_str - 1] = NULL;
+	if (amount_of_str == 1)
+		return (res);
+	res = ft_core(s, c, res);
+	return (res);
 }

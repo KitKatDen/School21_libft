@@ -34,6 +34,7 @@ SRC     = ${SRCDIR}ft_memset.c	\
 	  ${SRCDIR}ft_putendl_fd.c	\
 	  ${SRCDIR}ft_strmapi.c	\
 	  ${SRCDIR}ft_putnbr_fd.c	\
+	  ${SRCDIR}ft_split.c	\
 	  ${SRCDIR}ft_bzero.c
 OBJ		= ${patsubst ${SRCDIR}%.c, ${OBJDIR}%.o, ${SRC}}
 CC      = gcc
