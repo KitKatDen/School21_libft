@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cborton <cborton@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 09:49:34 by cborton           #+#    #+#             */
-/*   Updated: 2020/11/09 18:18:58 by cborton          ###   ########.fr       */
+/*   Created: 2020/11/09 17:57:27 by cborton           #+#    #+#             */
+/*   Updated: 2020/11/09 18:12:02 by cborton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *h, const char *n, size_t len)
+int	ft_lstsize(t_list *lst)
 {
-	size_t needle_len;
+	int i;
 
-	needle_len = ft_strlen(n);
-	if (n[0] == '\0')
-		return ((char *)h);
-	while (*h && len >= needle_len)
+	if (!lst)
+		return (0);
+	i = 0;
+	while (lst)
 	{
-		if (*h == *n && !(ft_memcmp(h, n, needle_len)))
-			return ((char *)h);
-		h++;
-		len--;
+		lst = lst->next;
+		i++;
 	}
-	return (NULL);
+	return (i);
 }

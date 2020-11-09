@@ -6,7 +6,7 @@
 /*   By: cborton <cborton@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:38:18 by cborton           #+#    #+#             */
-/*   Updated: 2020/11/08 20:45:10 by cborton          ###   ########.fr       */
+/*   Updated: 2020/11/09 17:25:46 by cborton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,21 @@ static int	ft_get_len_str(char const *s, char c, int str_id)
 	return (n);
 }
 
-static void	ft_add_str(char *str, const char *s, int *s_char_id, char c)
+void		ft_add_str(char *str, const char *s, int *s_char_id, char c)
 {
-	int last_id_of_str_OR_str_len;
+	int last_id;
 
-	last_id_of_str_OR_str_len = 0;
+	last_id = 0;
 	while (s[*s_char_id] && s[*s_char_id] == c)
 		*s_char_id = *s_char_id + 1;
 	while (s[*s_char_id] && s[*s_char_id] != c)
 	{
-		str[last_id_of_str_OR_str_len] = s[*s_char_id];
-		last_id_of_str_OR_str_len++;
+		str[last_id] = s[*s_char_id];
+		last_id++;
 		*s_char_id = *s_char_id + 1;
 	}
 	*s_char_id = *s_char_id - 1;
-	str[last_id_of_str_OR_str_len] = '\0';
+	str[last_id] = '\0';
 }
 
 static char	**ft_core(char const *s, char c, char **res)
@@ -100,7 +100,7 @@ char		**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	amount_of_str = ft_get_amount_of_str(s, c) + 1;
-	res = (char **)malloc(sizeof(char *) * amount_of_str);
+	res = (char **)malloc(sizeof(char *) * (amount_of_str));
 	if (!res)
 		return (NULL);
 	res[amount_of_str - 1] = NULL;
