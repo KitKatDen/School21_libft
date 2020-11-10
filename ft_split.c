@@ -6,14 +6,14 @@
 /*   By: cborton <cborton@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/08 14:38:18 by cborton           #+#    #+#             */
-/*   Updated: 2020/11/09 17:25:46 by cborton          ###   ########.fr       */
+/*   Updated: 2020/11/10 21:43:35 by cborton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-int			ft_get_amount_of_str(const char *s, const char c)
+static	int			ft_get_amount_of_str(const char *s, const char c)
 {
 	int n;
 
@@ -32,7 +32,7 @@ int			ft_get_amount_of_str(const char *s, const char c)
 	return (n);
 }
 
-static int	ft_get_len_str(char const *s, char c, int str_id)
+static int			ft_get_len_str(char const *s, char c, int str_id)
 {
 	int n;
 
@@ -47,7 +47,7 @@ static int	ft_get_len_str(char const *s, char c, int str_id)
 	return (n);
 }
 
-void		ft_add_str(char *str, const char *s, int *s_char_id, char c)
+static	void		ft_add_str(char *str, const char *s, int *s_char_id, char c)
 {
 	int last_id;
 
@@ -64,7 +64,7 @@ void		ft_add_str(char *str, const char *s, int *s_char_id, char c)
 	str[last_id] = '\0';
 }
 
-static char	**ft_core(char const *s, char c, char **res)
+static char			**ft_core(char const *s, char c, char **res)
 {
 	int s_char_id;
 	int str_len;
@@ -92,7 +92,7 @@ static char	**ft_core(char const *s, char c, char **res)
 	return (res);
 }
 
-char		**ft_split(char const *s, char c)
+char				**ft_split(char const *s, char c)
 {
 	char	**res;
 	int		amount_of_str;
